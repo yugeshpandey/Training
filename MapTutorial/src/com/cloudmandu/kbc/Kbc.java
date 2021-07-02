@@ -1,5 +1,6 @@
 package com.cloudmandu.kbc;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.cloudmandu.kbc.bank.Answers;
@@ -11,18 +12,38 @@ public class Kbc {
 	private static QuestionsBank questionBank = getQuestions();
 
 	public static void main(String[] args) {
-
+		// Yugesh Pandey
 		boolean isCorrect = true;
 		int currentQuestionNum = 0;
+		int numberOfQuestions = 8; // number of questions available (hardcoded as of now, could be improved)
+		ArrayList<Integer> questionsAsked = new ArrayList<Integer>();// stores the question numbers which are already
+																		// asked
+
 		while (isCorrect) {
-			System.out.println("asking question number " + (currentQuestionNum + 1));
-			isCorrect = askQuestion(currentQuestionNum);
-			currentQuestionNum++;
-			if (currentQuestionNum >= 8) {
+			int randomNumber = randomNumberGenerator(numberOfQuestions, 0); // generate a random question number
+			currentQuestionNum = randomNumber;
+
+			while (!questionsAsked.contains(randomNumber)) {
+				System.out.println("asking question number " + (currentQuestionNum + 1));
+				isCorrect = askQuestion(currentQuestionNum);
+				questionsAsked.add(randomNumber); // add the question number which is asked into ArrayList
+			}
+
+			if (questionsAsked.size() == numberOfQuestions) { // if number of questions asked is 8
 				System.out.println("Congratulations, you are now a millionaire");
 				break;
 			}
 		}
+
+	}
+
+	// generate a random number between variables "max" and "min".
+	public static int randomNumberGenerator(int max, int min) {
+
+		int range = max - min + 1;
+		int result = (int) (Math.random() * range) + min;
+
+		return result;
 
 	}
 
@@ -85,14 +106,3 @@ public class Kbc {
 	}
 
 }
-
-/*
- * 1. Question Bank 2. Answers Bank 3. User Selection
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- */

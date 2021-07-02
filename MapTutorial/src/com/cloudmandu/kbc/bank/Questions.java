@@ -12,5 +12,4 @@ public class Questions {
 	public static final String q8 = "Who was the first president of Mexico?";
 	
 	
-
 }
